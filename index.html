@@ -12,32 +12,69 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #ffffff;
             color: #1a1a1a;
             line-height: 1.5;
             padding: 2rem 1rem;
             min-height: 100vh;
+            background: #f5f0eb;
+            position: relative;
+        }
+
+        /* ===== ФОНОВЫЕ СЛАЙДЫ ===== */
+        #bg-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        .bg-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
-            position: relative;
-            transition: background-image 0.3s ease;
+            background-repeat: no-repeat;
+            transition: opacity 2s ease-in-out;
+            opacity: 0;
         }
-        body.bg-main {
+        .bg-slide.active {
+            opacity: 1;
+        }
+        .bg-slide-1 {
             background-image: url('bg.png');
         }
-        body.bg-alt {
+        .bg-slide-2 {
             background-image: url('bg1.png');
         }
+
+        /* ===== ЗАТЕМНЕНИЕ (ослабленное) ===== */
+        #bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            z-index: -1;
+        }
+
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.7); /* более прозрачный */
             border-radius: 48px;
             padding: 2rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 1;
         }
+
         .lang-bar {
             display: flex;
             justify-content: flex-end;
@@ -96,7 +133,7 @@
             margin: 1.5rem 0;
         }
         .card {
-            background: #f9f9f9;
+            background: rgba(255, 255, 255, 0.85);
             border-radius: 28px;
             padding: 1.2rem;
             flex: 1;
@@ -123,7 +160,7 @@
         }
         .quote {
             font-style: italic;
-            background: #fef5e8;
+            background: rgba(255, 255, 255, 0.7);
             padding: 1.2rem;
             border-radius: 24px;
             margin: 1.5rem 0;
@@ -134,7 +171,7 @@
             text-align: center;
             margin-top: 3rem;
             padding: 1.5rem;
-            background: #f5f5f5;
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 32px;
         }
         .qr-image {
@@ -159,17 +196,126 @@
             margin-bottom: 1rem;
         }
         .b2c-highlight {
-            background: #fff0e0;
+            background: rgba(255, 240, 224, 0.7);
             border-left: 5px solid #d97a0c;
             padding: 1rem;
             margin: 1rem 0;
             border-radius: 20px;
         }
+
+        /* ===== TYPEFORM & PAYMENT ===== */
+        .typeform-wrapper {
+            background: rgba(255,255,255,0.3);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0,0,0,0.08);
+            max-width: 100%;
+            width: 100%;
+        }
+        .typeform-wrapper .typeform-iframe {
+            width: 100%;
+            height: 275px;
+            border: none;
+            border-radius: 1rem;
+        }
+        @media (max-width: 700px) {
+            .typeform-wrapper .typeform-iframe {
+                height: 250px;
+            }
+        }
+        .payment-module {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2rem;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(217, 122, 12, 0.3);
+            margin: 2rem auto;
+            max-width: 100%;
+        }
+        .payment-module .pay-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .payment-module .pay-card {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(217, 122, 12, 0.2);
+        }
+        .payment-module .pay-card h3 {
+            color: #b85a00;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .payment-module .pay-card p.desc {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .payment-module .pay-card .amount-row {
+            margin: 1rem 0;
+        }
+        .payment-module .pay-card .amount-row label {
+            font-weight: bold;
+        }
+        .payment-module .pay-card .amount-row input {
+            width: 120px;
+            padding: 0.3rem;
+            border-radius: 2rem;
+            border: 1px solid #d97a0c;
+            font-size: 1rem;
+            margin-left: 0.5rem;
+        }
+        .payment-module .pay-card .pay-btn {
+            background: #2c5f2d;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+        .payment-module .pay-card .pay-btn:hover {
+            background: #1f4a20;
+            transform: scale(1.02);
+        }
+        .payment-module .pay-card .currency-note {
+            font-size: 0.7rem;
+            margin-top: 0.8rem;
+            color: #666;
+        }
+        .payment-module .info-note {
+            margin-top: 2rem;
+            padding: 1.2rem;
+            background: rgba(217,122,12,0.08);
+            border-radius: 2rem;
+            border-left: 4px solid #d97a0c;
+        }
+        .payment-module .info-note p {
+            font-size: 1rem;
+            color: #1a1a1a;
+            margin: 0;
+            text-align: center;
+            line-height: 1.4;
+        }
+        .payment-module .info-note a {
+            color: #d97a0c;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
         footer {
             text-align: center;
             margin-top: 2rem;
-            font-size: 0.75rem;
-            color: #666;
+            font-size: 0.85rem;
+            color: #444;
         }
         footer p {
             margin: 0.3rem 0;
@@ -182,24 +328,131 @@
         footer a:hover {
             text-decoration: underline;
         }
+        .footer-contact {
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* ===== КНОПКА "ВВЕРХ" ===== */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #d97a0c;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: opacity 0.3s, transform 0.2s;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        #back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #back-to-top:hover {
+            transform: scale(1.1);
+            background: #b85a00;
+        }
         @media (max-width: 700px) {
+            #back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 44px;
+                height: 44px;
+                font-size: 1.5rem;
+            }
             .container { padding: 1rem; }
             h1 { font-size: 2rem; }
             h2 { font-size: 1.5rem; }
+            .payment-module .pay-grid { flex-direction: column; }
+            .payment-module .pay-card { min-width: auto; }
         }
     </style>
 </head>
-<body class="bg-main">
+<body>
+
+<!-- ===== ФОНОВАЯ КАРУСЕЛЬ ===== -->
+<div id="bg-slideshow">
+    <div class="bg-slide bg-slide-1 active"></div>
+    <div class="bg-slide bg-slide-2"></div>
+</div>
+<div id="bg-overlay"></div>
+
 <div class="container" id="app">
     <div class="lang-bar">
         <button class="lang-btn" data-lang="en">🇬🇧 English</button>
         <button class="lang-btn" data-lang="el">🇬🇷 Ελληνικά</button>
+        <button class="lang-btn" data-lang="ru">🇷🇺 Русский</button>
     </div>
 
     <div id="content"></div>
 
+    <!-- ===== TYPEFORM ===== -->
+    <div class="section" id="typeform-section">
+        <h2 id="typeformTitle">Contact us</h2>
+        <p id="typeformNote" style="margin-bottom: 1rem; color: #444; font-size: 0.95rem;">
+            This form is processed through the parent company <strong>Hermes Management & Consulting Ltd</strong>, which ensures full protection of your data.
+        </p>
+        <div class="typeform-wrapper">
+            <iframe id="typeform-en" class="typeform-iframe" src="https://form.typeform.com/to/I3eAXtZt" frameborder="0" allow="camera; microphone; autoplay; encrypted-media;"></iframe>
+        </div>
+    </div>
+
+    <!-- ===== ПЛАТЁЖНЫЙ МОДУЛЬ ===== -->
+    <div class="section" id="payment-section">
+        <h2 id="paymentTitle">Consultation payment</h2>
+        <div class="payment-module">
+            <div class="pay-grid">
+                <div class="pay-card">
+                    <h3>💳 <span id="fiatTitle">Fiat Money</span></h3>
+                    <p class="desc" id="fiatDesc">Visa, Mastercard, Apple Pay, Google Pay</p>
+                    <div class="amount-row">
+                        <label id="amountLabel">Amount (€):</label>
+                        <input type="number" id="fiat-amount" value="50" min="1" step="1">
+                    </div>
+                    <div>
+                        <button id="fiat-pay-btn" class="pay-btn" data-i18n="payment_fiat_btn">💳 Pay by card</button>
+                    </div>
+                    <p class="currency-note" id="fiatCurrencies">We accept: EUR, USD, CHF, JPY, CNY</p>
+                </div>
+                <div class="pay-card">
+                    <h3>🪙 <span id="cryptoTitle">Digital Money</span></h3>
+                    <p class="desc" id="cryptoDesc">Bitcoin, Ethereum, USDT, and 350+ others</p>
+                    <div class="amount-row">
+                        <label id="amountLabel2">Amount (€):</label>
+                        <input type="number" id="crypto-amount" value="50" min="1" step="1">
+                    </div>
+                    <div>
+                        <button id="crypto-pay-btn" class="pay-btn" data-i18n="payment_crypto_btn">🪙 Pay with crypto</button>
+                    </div>
+                    <p class="currency-note" id="cryptoNote">Customer chooses currency on payment page</p>
+                </div>
+            </div>
+            <div class="info-note">
+                <p>
+                    📄 <strong id="noteTitle">Custom terms</strong><br>
+                    <span id="noteText">For large deals, corporate orders or special conditions, please </span>
+                    <a href="#" data-section="contact" id="noteLink">contact us</a>
+                    <span id="noteText2"> to issue a personal invoice and agree on details.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
     <div class="qr-area">
-        <div class="ai-badge">✨ Strategy created with AI consultant (ChatGPT)</div>
+        <div class="ai-badge" id="aiBadge">✨ Strategy created with AI consultant (ChatGPT)</div>
         <div class="qr-image">
             <img src="qrcode.png" alt="QR code">
         </div>
@@ -208,29 +461,78 @@
 
     <footer>
         <div id="footer-en" style="display: block;">
-            <p>© 2025 | Used Car Sales Strategy in Cyprus | B2B + B2C focus</p>
+            <p>© 2026 | Used Car Sales Strategy in Cyprus | B2B + B2C focus</p>
             <p>
                 <a href="privacy.html">Privacy Policy</a> |
                 <a href="terms.html">Terms of Use</a> |
                 <a href="robots.txt" target="_blank">robots.txt</a> |
                 <a href="sitemap.xml" target="_blank">sitemap.xml</a> |
-                <a href="humans.txt" target="_blank">humans.txt</a>
+                <a href="humans.txt" target="_blank">humans.txt</a> |
+                <a href="payment-policy.html">Payment Policy</a>
             </p>
+            <div class="footer-contact">
+                📞 +357 99 453575 | ✉️ gavrosh2007@gmail.com | 📍 Cyprus, Limassol
+            </div>
         </div>
         <div id="footer-el" style="display: none;">
-            <p>© 2025 | Στρατηγική πώλησης μεταχειρισμένων αυτοκινήτων στην Κύπρο | B2B + B2C</p>
+            <p>© 2026 | Στρατηγική πώλησης μεταχειρισμένων αυτοκινήτων στην Κύπρο | B2B + B2C</p>
             <p>
                 <a href="privacy.html">Πολιτική Απορρήτου</a> |
                 <a href="terms.html">Όροι Χρήσης</a> |
                 <a href="robots.txt" target="_blank">robots.txt</a> |
                 <a href="sitemap.xml" target="_blank">sitemap.xml</a> |
-                <a href="humans.txt" target="_blank">humans.txt</a>
+                <a href="humans.txt" target="_blank">humans.txt</a> |
+                <a href="payment-policy.html">Πολιτική Πληρωμών</a>
             </p>
+            <div class="footer-contact">
+                📞 +357 99 453575 | ✉️ gavrosh2007@gmail.com | 📍 Κύπρος, Λεμεσός
+            </div>
+        </div>
+        <div id="footer-ru" style="display: none;">
+            <p>© 2026 | Стратегия продажи подержанных автомобилей на Кипре | B2B + B2C</p>
+            <p>
+                <a href="privacy.html">Политика конфиденциальности</a> |
+                <a href="terms.html">Условия использования</a> |
+                <a href="robots.txt" target="_blank">robots.txt</a> |
+                <a href="sitemap.xml" target="_blank">sitemap.xml</a> |
+                <a href="humans.txt" target="_blank">humans.txt</a> |
+                <a href="payment-policy.html">Платёжная политика</a>
+            </p>
+            <div class="footer-contact">
+                📞 +357 99 453575 | ✉️ gavrosh2007@gmail.com | 📍 Кипр, Лимассол
+            </div>
         </div>
     </footer>
 </div>
 
+<button id="back-to-top" aria-label="Back to top">↑</button>
+
 <script>
+    // ===== КАРУСЕЛЬ ФОНОВ =====
+    const slides = document.querySelectorAll('.bg-slide');
+    let currentSlide = 0;
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+    setInterval(nextSlide, 6000);
+
+    // ===== КНОПКА "ВВЕРХ" =====
+    const backBtn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        if (currentScroll > 200) {
+            backBtn.classList.add('show');
+        } else {
+            backBtn.classList.remove('show');
+        }
+    });
+    backBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== ПЕРЕВОДЫ =====
     const translations = {
         en: {
             title: "Used Car Sales Strategy in Cyprus",
@@ -280,7 +582,23 @@
             offer: "Main business offer",
             offerText: "✅ We register the car for you — keys + contract within 24h.\n✅ Free replacement car during repairs.\n✅ First 2 weeks test drive for business — free.\n✅ Open contract, insurance, MOT — all included.",
             qrMessage: "Scan QR code — contact me directly (WhatsApp / Telegram)",
-            aiCredit: "✨ Strategy created with AI consultant (ChatGPT)"
+            aiCredit: "✨ Strategy created with AI consultant (ChatGPT)",
+            typeformTitle: "Contact us",
+            typeformNote: "This form is processed through the parent company <strong>Hermes Management & Consulting Ltd</strong>, which ensures full protection of your data.",
+            paymentTitle: "Consultation payment",
+            fiatTitle: "Fiat Money",
+            fiatDesc: "Visa, Mastercard, Apple Pay, Google Pay",
+            amountLabel: "Amount (€):",
+            fiatBtn: "💳 Pay by card",
+            fiatCurrencies: "We accept: EUR, USD, CHF, JPY, CNY",
+            cryptoTitle: "Digital Money",
+            cryptoDesc: "Bitcoin, Ethereum, USDT, and 350+ others",
+            cryptoBtn: "🪙 Pay with crypto",
+            cryptoNote: "Customer chooses currency on payment page",
+            noteTitle: "Custom terms",
+            noteText: "For large deals, corporate orders or special conditions, please ",
+            noteLink: "contact us",
+            noteText2: " to issue a personal invoice and agree on details."
         },
         el: {
             title: "Στρατηγική πώλησης μεταχειρισμένων αυτοκινήτων στην Κύπρο",
@@ -330,26 +648,98 @@
             offer: "Κύρια πρόταση για επιχειρήσεις",
             offerText: "✅ Εγγράφουμε το αυτοκίνητο για εσάς — κλειδιά + συμβόλαιο εντός 24 ωρών.\n✅ Δωρεάν αντικατάσταση αυτοκινήτου κατά την επισκευή.\n✅ Δωρεάν δοκιμαστική οδήγηση 2 εβδομάδων για επιχειρήσεις.\n✅ Ανοιχτό συμβόλαιο, ασφάλεια, MOT — όλα συμπεριλαμβάνονται.",
             qrMessage: "Σαρώστε το QR code — επικοινωνήστε προσωπικά μαζί μου (WhatsApp / Telegram)",
-            aiCredit: "✨ Στρατηγική που δημιουργήθηκε με AI σύμβουλο (ChatGPT)"
+            aiCredit: "✨ Στρατηγική που δημιουργήθηκε με AI σύμβουλο (ChatGPT)",
+            typeformTitle: "Επικοινωνήστε μαζί μας",
+            typeformNote: "Αυτή η φόρμα επεξεργάζεται μέσω της μητρικής εταιρείας <strong>Hermes Management & Consulting Ltd</strong>, η οποία διασφαλίζει την πλήρη προστασία των δεδομένων σας.",
+            paymentTitle: "Πληρωμή για συμβουλή",
+            fiatTitle: "Συμβατικά Χρήματα",
+            fiatDesc: "Visa, Mastercard, Apple Pay, Google Pay",
+            amountLabel: "Ποσό (€):",
+            fiatBtn: "💳 Πληρωμή με κάρτα",
+            fiatCurrencies: "Δεχόμαστε: EUR, USD, CHF, JPY, CNY",
+            cryptoTitle: "Ψηφιακά Χρήματα",
+            cryptoDesc: "Bitcoin, Ethereum, USDT, και 350+ άλλα",
+            cryptoBtn: "🪙 Πληρωμή με κρύπτο",
+            cryptoNote: "Ο πελάτης επιλέγει νόμισμα στη σελίδα πληρωμής",
+            noteTitle: "Ειδικοί όροι",
+            noteText: "Για μεγάλες συναλλαγές, εταιρικές παραγγελίες ή ειδικές συνθήκες, παρακαλούμε ",
+            noteLink: "επικοινωνήστε μαζί μας",
+            noteText2: " για την έκδοση προσωπικού τιμολογίου και τη συμφωνία λεπτομερειών."
+        },
+        ru: {
+            title: "Стратегия продажи подержанных автомобилей на Кипре",
+            subtitle: "B2B + B2C решения для кипрского рынка",
+            intro: "Эта презентация — личная стратегия, созданная мной вместе с AI-ассистентом. Основная идея: не просто продать автомобиль, а дать бизнесу и частным лицам готовый инструмент без лишних хлопот.",
+            b2cTitle: "B2C — Частные клиенты (основной бизнес)",
+            b2cItems: [
+                "Честные цены — без скрытых комиссий",
+                "Полная проверка истории (без ДТП и скрученного пробега)",
+                "Помощь с документами, страховкой и регистрацией",
+                "Тест-драйв с доставкой к вам домой или в офис",
+                "Trade-in: обмен старого авто на скидку",
+                "Возможность финансирования и лизинга",
+                "Бесплатное первое ТО"
+            ],
+            segments: "B2B — Бизнес-клиенты",
+            segmentRealtor: "Риелторы / Агентства недвижимости",
+            segmentRealtorDesc: "Надёжный автомобиль для показов объектов + бонус к сделке. Без регистрации — ключи и договор в течение 24 часов.",
+            segmentHotel: "Отели 4-5*",
+            segmentHotelDesc: "2-3 простых надёжных авто для трансферов VIP-гостей. «Ключи на ресепшн», 50/50 доход, нулевые затраты для отеля.",
+            segmentCarshare: "Каршеринг / Лизинговые компании",
+            segmentCarshareDesc: "Опт от 5 машин. Бесплатная подмена на время ремонта — их главная боль.",
+            segmentHR: "HR-компании / Кадровые агентства",
+            segmentHRDesc: "Автомобили для сотрудников (инженеров, менеджеров). Пакетные предложения, полное сопровождение.",
+            channels: "Новые каналы продаж (бесплатные / низкобюджетные)",
+            channelsList: [
+                "Сотрудничество с топ-30 агентствами недвижимости Кипра: «Бесплатный автомобиль на 2 недели» — без риска для них.",
+                "Отели через управляющие компании: машина на ресепшн, гость заказывает трансфер, делим доход.",
+                "Местный каршеринг (Ларнака, Лимассол): опт + бесплатная подмена на время ремонта.",
+                "Короткие видео-кейсы с реальными клиентами (YouTube Shorts / Reels / TikTok) с геолокацией Кипр.",
+                "LinkedIn: посты для владельцев отелей, риелторов, HR-директоров — бесплатно, приносит лиды через 2-3 недели."
+            ],
+            bots: "Боты и агенты (без Telegram — только открытые каналы)",
+            botsList: [
+                "WhatsApp Business API (GreenAPI) — автоответы на запросы: «машина для отеля?» → условия, цена, фото.",
+                "ManyChat для Facebook Messenger — бот собирает контакты со страницы Facebook.",
+                "Чат-агент на сайте на базе ChatGPT (бесплатный API) — отвечает про регистрацию, страховку, доставку.",
+                "Автоматический сбор отзывов + создание видео-тизеров (AI-генерация коротких роликов)."
+            ],
+            marketing: "Реклама и бюджет (минимальный)",
+            marketingList: [
+                "Facebook/Instagram таргетинг: риелторы в Лимассоле/Никосии, HR-директора, отельеры — €200/мес.",
+                "Google Ads: «купить авто для бизнеса Кипр», «трансфер отеля Лимассол» — €150/мес.",
+                "Bazaraki.com: премиум-объявления в категории «B2B авто» — €50/мес.",
+                "Бесплатные кейсы и видео — снято на iPhone, монтаж в CapCut."
+            ],
+            offer: "Основное предложение для бизнеса",
+            offerText: "✅ Регистрируем авто на вас — ключи + договор в течение 24 часов.\n✅ Бесплатная подмена на время ремонта.\n✅ Первые 2 недели тест-драйв для бизнеса — бесплатно.\n✅ Открытый договор, страховка, техосмотр — всё включено.",
+            qrMessage: "Отсканируйте QR-код — свяжитесь со мной напрямую (WhatsApp / Telegram)",
+            aiCredit: "✨ Стратегия создана с AI-консультантом (ChatGPT)",
+            typeformTitle: "Свяжитесь с нами",
+            typeformNote: "Эта форма обрабатывается через головную компанию <strong>Hermes Management & Consulting Ltd</strong>, которая гарантирует полную защиту ваших данных.",
+            paymentTitle: "Оплата консультации",
+            fiatTitle: "Обычные деньги",
+            fiatDesc: "Visa, Mastercard, Apple Pay, Google Pay",
+            amountLabel: "Сумма (€):",
+            fiatBtn: "💳 Оплатить картой",
+            fiatCurrencies: "Принимаем: EUR, USD, CHF, JPY, CNY",
+            cryptoTitle: "Цифровые деньги",
+            cryptoDesc: "Bitcoin, Ethereum, USDT и 350+ других",
+            cryptoBtn: "🪙 Оплатить криптой",
+            cryptoNote: "Клиент выбирает валюту на странице оплаты",
+            noteTitle: "Индивидуальные условия",
+            noteText: "Для крупных сделок, корпоративных заказов или нестандартных условий, пожалуйста, ",
+            noteLink: "свяжитесь с нами",
+            noteText2: " для выставления персонального инвойса и согласования деталей."
         }
     };
 
     let currentLang = 'en';
 
-    function setBackground(lang) {
-        const body = document.body;
-        if (lang === 'el') {
-            body.classList.remove('bg-main');
-            body.classList.add('bg-alt');
-        } else {
-            body.classList.remove('bg-alt');
-            body.classList.add('bg-main');
-        }
-    }
-
     function setFooterLanguage(lang) {
         document.getElementById('footer-en').style.display = lang === 'en' ? 'block' : 'none';
         document.getElementById('footer-el').style.display = lang === 'el' ? 'block' : 'none';
+        document.getElementById('footer-ru').style.display = lang === 'ru' ? 'block' : 'none';
     }
 
     function renderContent() {
@@ -396,12 +786,30 @@
         document.getElementById('qrText').innerText = t.qrMessage;
         document.querySelector('.ai-badge').innerText = t.aiCredit;
         setFooterLanguage(currentLang);
+
+        document.getElementById('typeformTitle').innerText = t.typeformTitle;
+        document.getElementById('typeformNote').innerHTML = t.typeformNote;
+
+        document.getElementById('paymentTitle').innerText = t.paymentTitle;
+        document.getElementById('fiatTitle').innerText = t.fiatTitle;
+        document.getElementById('fiatDesc').innerText = t.fiatDesc;
+        document.getElementById('amountLabel').innerText = t.amountLabel;
+        document.getElementById('amountLabel2').innerText = t.amountLabel;
+        document.querySelector('#fiat-pay-btn').innerText = t.fiatBtn;
+        document.getElementById('fiatCurrencies').innerText = t.fiatCurrencies;
+        document.getElementById('cryptoTitle').innerText = t.cryptoTitle;
+        document.getElementById('cryptoDesc').innerText = t.cryptoDesc;
+        document.querySelector('#crypto-pay-btn').innerText = t.cryptoBtn;
+        document.getElementById('cryptoNote').innerText = t.cryptoNote;
+        document.getElementById('noteTitle').innerText = t.noteTitle;
+        document.getElementById('noteText').innerText = t.noteText;
+        document.getElementById('noteLink').innerText = t.noteLink;
+        document.getElementById('noteText2').innerText = t.noteText2;
     }
 
     function setLanguage(lang) {
         currentLang = lang;
         renderContent();
-        setBackground(lang);
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.lang === lang);
         });
@@ -412,6 +820,21 @@
     });
 
     setLanguage('en');
+
+    // ===== ПЛАТЕЖНЫЕ ЗАГЛУШКИ =====
+    document.getElementById('fiat-pay-btn').addEventListener('click', function() {
+        const amount = document.getElementById('fiat-amount').value;
+        const lang = currentLang;
+        const msg = lang === 'ru' ? '💳 Обычный платёж' : (lang === 'el' ? '💳 Πληρωμή με κάρτα' : '💳 Fiat payment');
+        alert(`${msg}: €${amount}\n\n${lang === 'ru' ? 'В реальном режиме откроется Stripe Checkout.' : lang === 'el' ? 'Σε πραγματική λειτουργία, θα ανοίξει το Stripe Checkout.' : 'In real mode, Stripe Checkout would open.'}`);
+    });
+
+    document.getElementById('crypto-pay-btn').addEventListener('click', function() {
+        const amount = document.getElementById('crypto-amount').value;
+        const lang = currentLang;
+        const msg = lang === 'ru' ? '🪙 Криптоплатёж' : (lang === 'el' ? '🪙 Πληρωμή με κρύπτο' : '🪙 Crypto payment');
+        alert(`${msg}: €${amount}\n\n${lang === 'ru' ? 'В реальном режиме откроется NowPayments инвойс.' : lang === 'el' ? 'Σε πραγματική λειτουργία, θα ανοίξει το NowPayments.' : 'In real mode, NowPayments invoice would open.'}`);
+    });
 </script>
 </body>
 </html>
